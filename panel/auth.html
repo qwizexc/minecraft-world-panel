@@ -53,7 +53,6 @@
             if (!port) return;
 
             try {
-                // Отправляем порт на сервер для запуска бота
                 const response = await fetch('http://localhost:3000/api/connect', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
