@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft world Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#0a0a0a] text-neutral-100 min-h-screen flex flex-col font-sans select-none transition-colors duration-500">
+
+    <header class="bg-[#121212] border-b border-neutral-800 px-6 py-4 flex justify-between items-center shadow-lg transition-all duration-500" id="site-header">
+
+        <div class="flex items-center space-x-3 cursor-pointer group hidden" id="easter-egg-btn" title="Отключить хак-мод">
+            <div class="bg-[#260505] p-2.5 rounded-xl border border-rose-900 shadow-md group-hover:border-rose-600 transition">
+                <i class="fa-solid fa-ghost text-xl text-rose-500 group-hover:text-rose-400 transition"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-bold tracking-wide text-rose-500 transition">Minecraft world Panel</h1>
+                <p class="text-xs text-neutral-500">Разработчик: <span class="text-neutral-400 font-medium">qwizexc</span></p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3 cursor-pointer group" id="normal-header-title" title="Активировать хак-мод">
+            <div class="bg-neutral-800 p-2.5 rounded-xl border border-neutral-700 shadow-md group-hover:border-rose-600 transition">
+                <i class="fa-solid fa-terminal text-xl text-neutral-200 group-hover:text-rose-500 transition"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-bold tracking-wide text-neutral-200 group-hover:text-rose-500 transition">Minecraft world Panel</h1>
+                <p class="text-xs text-neutral-500">Разработчик: <span class="text-neutral-400 font-medium">qwizexc</span></p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3 bg-[#171717] px-4 py-2 rounded-lg border border-neutral-800 transition-colors duration-500" id="panel-status-badge">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" id="status-ping"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" id="status-dot"></span>
+            </span>
+            <span class="text-xs font-semibold text-neutral-300 uppercase tracking-wider" id="status-text">Панель активна</span>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="lg:col-span-1 space-y-6">
+            <div class="bg-[#121212] p-1.5 rounded-2xl border border-neutral-800 flex items-center justify-between space-x-1">
+                <button id="btn-tab-console" class="tab-btn flex-1 py-2 px-1.5 rounded-xl text-[11px] font-bold tracking-tight uppercase transition bg-neutral-200 text-neutral-900 shadow cursor-pointer whitespace-nowrap flex items-center justify-center">
+                    <i class="fa-solid fa-terminal mr-1.5 pointer-events-none"></i><span class="pointer-events-none">Консоль</span>
+                </button>
+                <button id="btn-tab-world" class="tab-btn flex-1 py-2 px-1.5 rounded-xl text-[11px] font-bold tracking-tight uppercase transition text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/50 cursor-pointer whitespace-nowrap flex items-center justify-center">
+                    <i class="fa-solid fa-globe mr-1.5 pointer-events-none"></i><span class="pointer-events-none">Мир</span>
+                </button>
+                <button id="btn-tab-players" class="tab-btn flex-1 py-2 px-1.5 rounded-xl text-[11px] font-bold tracking-tight uppercase transition text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/50 cursor-pointer whitespace-nowrap flex items-center justify-center">
+                    <i class="fa-solid fa-users mr-1.5 pointer-events-none"></i><span class="pointer-events-none">Игроки</span>
+                </button>
+                <button id="btn-tab-generator" class="tab-btn flex-1 py-2 px-1.5 rounded-xl text-[11px] font-bold tracking-tight uppercase transition text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/50 cursor-pointer whitespace-nowrap flex items-center justify-center">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-1.5 pointer-events-none"></i><span class="pointer-events-none">Билдер</span>
+                </button>
+            </div>
+
+            <div class="bg-[#121212] rounded-2xl p-5 border border-neutral-800 shadow-xl">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4 flex items-center">
+                    <i class="fa-solid fa-bolt text-neutral-300 mr-2"></i>Быстрые действия
+                </h2>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button data-cmd="/time set day" class="btn-quick bg-[#1a1a1a] hover:bg-neutral-800 text-neutral-300 text-xs py-3 px-3 rounded-xl transition font-medium text-left flex items-center justify-between border border-neutral-800/80 group cursor-pointer">
+                        <span class="pointer-events-none">День</span>
+                        <i class="fa-solid fa-sun text-neutral-500 group-hover:text-neutral-300 pointer-events-none"></i>
+                    </button>
+                    <button data-cmd="/time set night" class="btn-quick bg-[#1a1a1a] hover:bg-neutral-800 text-neutral-300 text-xs py-3 px-3 rounded-xl transition font-medium text-left flex items-center justify-between border border-neutral-800/80 group cursor-pointer">
+                        <span class="pointer-events-none">Ночь</span>
+                        <i class="fa-solid fa-moon text-neutral-500 group-hover:text-neutral-300 pointer-events-none"></i>
+                    </button>
+                    <button data-cmd="/weather clear" class="btn-quick bg-[#1a1a1a] hover:bg-neutral-800 text-neutral-300 text-xs py-3 px-3 rounded-xl transition font-medium text-left flex items-center justify-between border border-neutral-800/80 group cursor-pointer">
+                        <span class="pointer-events-none">Ясно</span>
+                        <i class="fa-solid fa-cloud-sun text-neutral-500 group-hover:text-neutral-300 pointer-events-none"></i>
+                    </button>
+                    <button data-cmd="/weather thunder" class="btn-quick bg-[#1a1a1a] hover:bg-neutral-800 text-neutral-300 text-xs py-3 px-3 rounded-xl transition font-medium text-left flex items-center justify-between border border-neutral-800/80 group cursor-pointer">
+                        <span class="pointer-events-none">Шторм</span>
+                        <i class="fa-solid fa-cloud-bolt text-neutral-500 group-hover:text-neutral-300 pointer-events-none"></i>
+                    </button>
+                    <button data-cmd="/effect give @p regeneration 30 1 true" class="btn-quick bg-[#1a1a1a] hover:bg-neutral-800 text-neutral-300 text-xs py-3 px-3 rounded-xl transition font-medium text-left flex items-center justify-between border border-neutral-800/80 group cursor-pointer">
+                        <span class="pointer-events-none">Лечение</span>
+                        <i class="fa-solid fa-heart-pulse text-neutral-500 group-hover:text-neutral-300 pointer-events-none"></i>
+                    </button>
+                    <button data-cmd="/effect give @p saturation 30 1 true" class="btn-quick bg-[#1a1a1a] hover:bg-neutral-800 text-neutral-300 text-xs py-3 px-3 rounded-xl transition font-medium text-left flex items-center justify-between border border-neutral-800/80 group cursor-pointer">
+                        <span class="pointer-events-none">Сытость</span>
+                        <i class="fa-solid fa-utensils text-neutral-500 group-hover:text-neutral-300 pointer-events-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-[#121212] rounded-2xl border border-neutral-800 shadow-xl flex flex-col overflow-hidden min-h-[500px]">
+            
+            <div id="tab-console" class="flex-1 flex flex-col p-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center">
+                        <i class="fa-solid fa-terminal text-neutral-300 mr-2"></i>Терминал команд
+                    </h2>
+                    <button id="btn-clear-console" class="text-xs text-neutral-500 hover:text-neutral-300 transition cursor-pointer">Очистить</button>
+                </div>
+                
+                <div id="console-output" class="flex-1 bg-[#070707] rounded-xl p-4 font-mono text-xs overflow-y-auto max-h-[420px] mb-4 space-y-2 border border-neutral-900 shadow-inner">
+                    <div class="text-neutral-600">[System] Панель готова к отправке команд.</div>
+                </div>
+
+                <form id="command-form" class="flex space-x-2">
+                    <div class="relative flex-1">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-400 font-mono font-bold">/</span>
+                        <input type="text" id="command-input" autocomplete="off" placeholder="Введите команду..." 
+                            class="w-full bg-[#171717] border border-neutral-800 rounded-xl pl-8 pr-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 transition shadow-inner">
+                    </div>
+                    <button type="submit" class="bg-neutral-200 hover:bg-white text-neutral-900 px-6 rounded-xl font-bold transition flex items-center justify-center shadow-lg cursor-pointer">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div id="tab-world" class="hidden flex-1 p-6 space-y-6 overflow-y-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center">
+                    <i class="fa-solid fa-globe text-neutral-300 mr-2"></i>Правила мира (Gamerules)
+                </h2>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-4 bg-[#171717] rounded-xl border border-neutral-800/80">
+                        <div>
+                            <h3 class="font-semibold text-xs text-neutral-200">Сохранение инвентаря (keepInventory)</h3>
+                            <p class="text-[11px] text-neutral-500">Не терять вещи при смерти</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" data-rule="keepInventory" class="gamerule-checkbox sr-only peer">
+                            <div class="w-11 h-6 bg-neutral-800 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-900 after:h-5 after:w-5 after:rounded-full after:transition-all peer-checked:bg-neutral-200 border border-neutral-700"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 bg-[#171717] rounded-xl border border-neutral-800/80">
+                        <div>
+                            <h3 class="font-semibold text-xs text-neutral-200">Смена времени суток (doDaylightCycle)</h3>
+                            <p class="text-[11px] text-neutral-500">Автоматическая смена дня и ночи</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" data-rule="doDaylightCycle" checked class="gamerule-checkbox sr-only peer">
+                            <div class="w-11 h-6 bg-neutral-800 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-900 after:h-5 after:w-5 after:rounded-full after:transition-all peer-checked:bg-neutral-200 border border-neutral-700"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <label class="block text-xs font-semibold uppercase text-neutral-400 mb-2">Сложность мира (difficulty)</label>
+                    
+                    <div class="relative" id="custom-select-wrapper">
+                        <div id="select-selected" class="w-full bg-[#171717] border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 flex justify-between items-center cursor-pointer transition hover:border-neutral-700">
+                            <span id="select-current-text">Нормальная (Normal)</span>
+                            <i class="fa-solid fa-chevron-down text-neutral-400 text-[10px] transition-transform duration-200" id="select-arrow"></i>
+                        </div>
+                        <div id="select-items" class="hidden absolute left-0 right-0 top-full mt-2 bg-[#121212] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden z-50 p-1.5 space-y-1">
+                            <div data-value="peaceful" class="select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition">Мирная (Peaceful)</div>
+                            <div data-value="easy" class="select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition">Легкая (Easy)</div>
+                            <div data-value="normal" class="select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition bg-neutral-800/50 text-white font-medium">Нормальная (Normal)</div>
+                            <div data-value="hard" class="select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition">Сложная (Hard)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-players" class="hidden flex-1 p-6 space-y-6 overflow-y-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center">
+                    <i class="fa-solid fa-users text-neutral-300 mr-2"></i>Управление игроками
+                </h2>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-neutral-500 mb-2">Никнейм игрока или селектор (@p, @a)</label>
+                        <input type="text" id="player-target-name" placeholder="Введите никнейм или выберите из списка..." 
+                            class="w-full bg-[#171717] border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 focus:outline-none focus:border-neutral-500 transition shadow-inner">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[11px] font-bold uppercase text-neutral-500">Игроки онлайн в мире:</span>
+                            <span id="players-count" class="text-[10px] bg-neutral-800 text-neutral-400 px-2.5 py-0.5 rounded-full">0 в сети</span>
+                        </div>
+                        <div id="players-list-container" class="bg-[#171717] border border-neutral-800 rounded-2xl p-2 max-h-[160px] overflow-y-auto space-y-1.5">
+                            <div class="text-neutral-500 text-xs italic px-3 py-2">Бот не в сети или нет игроков...</div>
+                        </div>
+                    </div>
+
+                    <div id="player-actions-container" class="hidden space-y-4 pt-2 border-t border-neutral-800/80">
+                        <div class="flex items-center space-x-3 bg-[#171717] p-3 rounded-xl border border-neutral-800">
+                            <img id="selected-player-avatar" src="https://minotar.net/helm/steve/24.png" alt="Avatar" class="w-6 h-6 rounded-md shadow">
+                            <div class="text-xs font-bold text-neutral-200">
+                                Игрок: <span id="selected-player-name" class="text-rose-500 font-mono">@p</span>
+                            </div>
+                        </div>
+
+                        <div id="standard-panel-block" class="space-y-4">
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-2">Режим игры</span>
+                                <div class="grid grid-cols-3 gap-2.5">
+                                    <button id="btn-player-gm-survival" class="bg-[#171717] hover:bg-neutral-800 text-neutral-300 border border-neutral-800/80 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-2 cursor-pointer">
+                                        <i class="fa-solid fa-shield-halved text-neutral-400"></i>
+                                        <span>Выживание</span>
+                                    </button>
+                                    <button id="btn-player-gm-creative" class="bg-[#171717] hover:bg-neutral-800 text-neutral-300 border border-neutral-800/80 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-2 cursor-pointer">
+                                        <i class="fa-solid fa-feather text-neutral-400"></i>
+                                        <span>Творческий</span>
+                                    </button>
+                                    <button id="btn-player-gm-spectator" class="bg-[#171717] hover:bg-neutral-800 text-neutral-300 border border-neutral-800/80 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-2 cursor-pointer">
+                                        <i class="fa-solid fa-ghost text-neutral-400"></i>
+                                        <span>Наблюдатель</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#171717] p-4 rounded-2xl border border-neutral-800 space-y-3">
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 flex items-center">
+                                    <i class="fa-solid fa-location-dot text-rose-500 mr-2"></i>Телепортация
+                                </span>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[10px] text-neutral-500 mb-1">К игроку:</label>
+                                        <div class="relative" id="tp-player-select-wrapper">
+                                            <div id="tp-select-selected" class="w-full bg-[#121212] border border-neutral-800 rounded-xl px-3 py-2 text-xs text-neutral-200 flex justify-between items-center cursor-pointer hover:border-neutral-700">
+                                                <span id="tp-select-current-text" class="truncate">Выберите цель...</span>
+                                                <i class="fa-solid fa-chevron-down text-neutral-500 text-[9px] ml-1" id="tp-select-arrow"></i>
+                                            </div>
+                                            <div id="tp-select-items" class="hidden absolute left-0 right-0 top-full mt-1 bg-[#121212] border border-neutral-800 rounded-xl shadow-2xl overflow-hidden z-50 p-1 space-y-1 max-h-[130px] overflow-y-auto">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-[10px] text-neutral-500 mb-1">Или на координаты (X Y Z):</label>
+                                        <div class="flex space-x-1.5">
+                                            <input type="text" id="tp-x" placeholder="X" class="w-1/3 bg-[#121212] border border-neutral-800 rounded-xl px-2 py-2 text-xs text-center text-neutral-200 focus:outline-none focus:border-neutral-600">
+                                            <input type="text" id="tp-y" placeholder="Y" class="w-1/3 bg-[#121212] border border-neutral-800 rounded-xl px-2 py-2 text-xs text-center text-neutral-200 focus:outline-none focus:border-neutral-600">
+                                            <input type="text" id="tp-z" placeholder="Z" class="w-1/3 bg-[#121212] border border-neutral-800 rounded-xl px-2 py-2 text-xs text-center text-neutral-200 focus:outline-none focus:border-neutral-600">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button id="btn-player-tp-exec" class="w-full bg-neutral-800 hover:bg-neutral-700 text-neutral-200 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer shadow border border-neutral-700/50 flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-bolt text-rose-500 text-xs"></i>
+                                    <span>Телепортировать</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="normal-buttons-container" class="grid grid-cols-2 gap-2.5 pt-1">
+                            <button id="btn-player-kick" class="bg-[#171717] hover:bg-neutral-800 text-rose-400 border border-neutral-800/80 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-1.5 cursor-pointer">
+                                <i class="fa-solid fa-user-xmark"></i>
+                                <span>Кикнуть</span>
+                            </button>
+                            <button id="btn-player-ban" class="bg-[#171717] hover:bg-neutral-800 text-rose-500 border border-neutral-800/80 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-2 cursor-pointer">
+                                <i class="fa-solid fa-ban"></i>
+                                <span>Забанить</span>
+                            </button>
+                        </div>
+
+                        <div id="hack-buttons-container" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
+                            <button id="btn-player-kill" class="bg-[#2a0808] hover:bg-rose-950 text-rose-400 border border-rose-900/50 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-1.5 cursor-pointer">
+                                <i class="fa-solid fa-skull"></i>
+                                <span>Убить</span>
+                            </button>
+                            <button id="btn-player-dirt-inv" class="bg-[#2a0808] hover:bg-rose-950 text-rose-400 border border-rose-900/50 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-1.5 cursor-pointer">
+                                <i class="fa-solid fa-earth-americas"></i>
+                                <span>Инвентарь из земли</span>
+                            </button>
+                            <button id="btn-player-bad-effects" class="bg-[#2a0808] hover:bg-rose-950 text-rose-400 border border-rose-900/50 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-1.5 cursor-pointer">
+                                <i class="fa-solid fa-skull-crossbones"></i>
+                                <span>Плохие эффекты</span>
+                            </button>
+                            <button id="btn-player-tp-nether" class="bg-[#2a0808] hover:bg-rose-950 text-rose-400 border border-rose-900/50 text-xs py-2.5 px-3 rounded-xl transition font-medium flex items-center justify-center space-x-1.5 cursor-pointer">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>ТП в Ад</span>
+                            </button>
+                            <button id="btn-player-all-in-one" class="bg-[#3b0909] hover:bg-rose-900 text-rose-300 border border-rose-700/60 text-xs py-2.5 px-3 rounded-xl transition font-bold flex items-center justify-center space-x-1.5 cursor-pointer shadow-lg sm:col-span-2 lg:col-span-1">
+                                <i class="fa-solid fa-biohazard text-rose-400"></i>
+                                <span>Всё сразу</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-generator" class="hidden flex-1 p-6 space-y-6 overflow-y-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center">
+                    <i class="fa-solid fa-wand-magic-sparkles text-neutral-300 mr-2"></i>Генератор команд
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-neutral-500 mb-2">Тип команды</label>
+                        
+                        <div class="relative" id="gen-select-wrapper">
+                            <div id="gen-select-selected" class="w-full bg-[#171717] border border-neutral-800 rounded-xl px-3.5 py-3 text-xs text-neutral-200 flex justify-between items-center cursor-pointer transition hover:border-neutral-700">
+                                <span id="gen-select-current-text">Выдать предмет (/give)</span>
+                                <i class="fa-solid fa-chevron-down text-neutral-400 text-[10px] transition-transform duration-200" id="gen-select-arrow"></i>
+                            </div>
+                            <div id="gen-select-items" class="hidden absolute left-0 right-0 top-full mt-2 bg-[#121212] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden z-50 p-1.5 space-y-1">
+                                <div data-value="give" class="gen-select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition bg-neutral-800/50 text-white font-medium">Выдать предмет (/give)</div>
+                                <div data-value="summon" class="gen-select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition">Призвать моба (/summon)</div>
+                                <div data-value="effect" class="gen-select-option px-3.5 py-2.5 text-xs text-neutral-300 hover:bg-neutral-800/80 hover:text-white rounded-xl cursor-pointer transition">Наложить эффект (/effect)</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="gen-type" value="give">
+
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-neutral-500 mb-2">Цель</label>
+                        <input type="text" id="gen-target" value="@p" class="w-full bg-[#171717] border border-neutral-800 rounded-xl px-3.5 py-3 text-xs text-neutral-200">
+                    </div>
+                </div>
+
+                <div>
+                    <label id="gen-label" class="block text-[11px] font-bold uppercase text-neutral-500 mb-2">ID предмета / моба</label>
+                    <input type="text" id="gen-value" value="diamond_block" class="w-full bg-[#171717] border border-neutral-800 rounded-xl px-3.5 py-3 text-xs text-neutral-200">
+                </div>
+
+                <div class="bg-[#171717] p-4 rounded-xl border border-neutral-800 space-y-3">
+                    <div class="text-[11px] font-bold uppercase text-neutral-500">Результат:</div>
+                    <div id="gen-preview" class="font-mono text-neutral-200 bg-[#070707] p-3 rounded-lg text-xs border border-neutral-900 break-all">
+                        /give @p diamond_block 1
+                    </div>
+                    <button id="btn-exec-gen" class="w-full bg-neutral-200 hover:bg-white text-neutral-900 py-3 rounded-xl text-xs font-bold transition cursor-pointer shadow">
+                        Выполнить через бота
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

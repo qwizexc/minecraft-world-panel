@@ -1,0 +1,59 @@
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #262626; 
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #404040; 
+}
+
+body {
+    background-color: #0a0a0a;
+}
+/* Кровавые стили для Хак-мода */
+body.hack-mode .bg-\[\#121212\] {
+    background-color: #1a0505 !important;
+    border-color: #5c1111 !important;
+}
+
+body.hack-mode .bg-\[\#171717\],
+body.hack-mode .bg-\[\#1a1a1a\] {
+    background-color: #260808 !important;
+    border-color: #7a1818 !important;
+}
+
+body.hack-mode .bg-\[\#070707\] {
+    background-color: #120202 !important;
+    border-color: #4a0c0c !important;
+}
+
+body.hack-mode .text-neutral-200,
+body.hack-mode .text-neutral-300 {
+    color: #fca5a5 !important;
+}
+
+body.hack-mode .text-neutral-400,
+body.hack-mode .text-neutral-500 {
+    color: #f87171 !important;
+}
+
+body.hack-mode .border-neutral-800,
+body.hack-mode .border-neutral-700,
+body.hack-mode .border-neutral-900 {
+    border-color: #6b1111 !important;
+}
+
+body.hack-mode .tab-btn.bg-neutral-200 {
+    background-color: #9f1239 !important;
+    color: #ffe4e6 !important;
+    box-shadow: 0 0 12px rgba(225, 29, 72, 0.4) !important;
+}

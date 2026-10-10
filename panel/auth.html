@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация — Minecraft world Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#0a0a0a] text-neutral-100 min-h-screen flex items-center justify-center font-sans select-none p-4">
+
+    <div class="max-w-md w-full bg-[#121212] rounded-3xl border border-neutral-800 shadow-2xl p-8 space-y-6">
+        
+        <!-- Шапка с иконкой и разработчиком -->
+        <div class="flex items-center space-x-3.5 pb-2 border-b border-neutral-800/80">
+            <div class="bg-neutral-800 p-3 rounded-2xl border border-neutral-700 shadow-md">
+                <i class="fa-solid fa-hat-wizard text-2xl text-neutral-200"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-bold tracking-wide text-neutral-200">Minecraft world Panel</h1>
+                <p class="text-xs text-neutral-500">Разработчик: <span class="text-neutral-400 font-medium">qwizexc</span></p>
+            </div>
+        </div>
+
+        <!-- Форма подключения -->
+        <form id="auth-form" class="space-y-4">
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Порт локального сервера (LAN)</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-neutral-500">
+                        <i class="fa-solid fa-network-wired text-xs"></i>
+                    </span>
+                    <input type="number" id="port-input" required autocomplete="off" placeholder="Например: 54341" 
+                        class="w-full bg-[#171717] border border-neutral-800 rounded-2xl pl-10 pr-4 py-3.5 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 transition shadow-inner">
+                </div>
+                <p class="text-[11px] text-neutral-500 mt-2">Введите порт, который выдается при открытии мира для сети.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-neutral-200 hover:bg-white text-neutral-900 py-3.5 rounded-2xl text-xs font-bold transition flex items-center justify-center space-x-2 cursor-pointer shadow-lg">
+                <span>Подключить панель</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+        </form>
+
+        <div class="text-center">
+            <span class="text-[10px] text-neutral-600">Локальный прокси-клиент mineflayer</span>
+        </div>
+
+    </div>
+
+<script>
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const port = document.getElementById('port-input').value.trim();
+            if (!port) return;
+
+            try {
+                // Отправляем порт на сервер для запуска бота
+                const response = await fetch('http://localhost:3000/api/connect', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ port })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.setItem('minecraft_lan_port', port);
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Ошибка подключения: ' + data.error);
+                }
+            } catch (err) {
+                alert('Не удалось связаться с сервером (убедись, что запущен node server.js)');
+            }
+        });
+    </script>
+</body>
+</html>
