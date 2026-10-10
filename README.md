@@ -20,3 +20,10 @@
 - **Автоматизация:** Батник (`start.bat`) для запуска сервера и открытия интерфейса в один клик.
 
 ---
+
+## 🍭 Установка
+
+```bash
+npm install mineflayer
+npm install express
+npm install cors
