@@ -49,6 +49,9 @@ function createBot(port) {
         console.clear();
         console.log(`[System] Бот ${BOT_USERNAME} успешно зашел в мир!`);
         console.log(`[System] Панель доступна: http://localhost:3000`);
+        setTimeout(() => {
+            bot.chat('/gamemode spectator');
+        }, 1000);
     });
 
     bot.on('end', () => { bot = null; });
